@@ -4,3 +4,9 @@ div.form-builder {
   max-width: 1200px;
   width: 75vw;
 }
+
+h1 {
+  padding: 10px;
+  margin-left: 20px;
+  font-size: 3em;
+}

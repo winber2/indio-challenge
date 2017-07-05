@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,700,900");
+
+html, body, div, section, main, aside, ul, li, nav, header, footer, p, span,
+ol, a, figure, caption, h1, h2, h3, h4, h5, h6 {
+
+  font-family: Source Sans Pro;
+  padding: 0;
+  border: 0;
+  margin: 0;
+
+  list-style: none;
+}
