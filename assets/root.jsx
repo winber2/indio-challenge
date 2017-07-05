@@ -1,6 +1,7 @@
 import React from 'react';
 import Tabs from './navigation/tabs';
 import AddQuestion from './question/add_question';
+import Question from './question/question';
 
 class Root extends React.Component {
   constructor(props) {
@@ -19,6 +20,9 @@ class Root extends React.Component {
         </div>
         <main className="form">
         </main>
+        <ul className="questions">
+          <Question />
+        </ul>
         <AddQuestion />
       </div>
     )
