@@ -1,0 +1,38 @@
+button {
+  display: flex;
+  background: transparent;
+  align-items: center;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+div.circle {
+  background: rgba(62, 209, 196, 1);
+  border-radius: 50%;
+  color: white;
+  width: 30px;
+  height: 30px;
+  font-size: 33px;
+
+  transition: all 0.2s;
+}
+
+button span {
+  font-size: 1.5em;
+  color: rgba(62, 209, 196, 1);
+  margin-left: 10px;
+}
+
+/*button:hover span {
+  color: #35b1a6;
+}*/
+
+button:hover div {
+  background: #35b1a6;
+}

@@ -5,7 +5,7 @@
 }
 
 html, body, div, section, main, aside, ul, li, nav, header, footer, p, span,
-ol, a, figure, caption, h1, h2, h3, h4, h5, h6 {
+article, ol, a, figure, caption, h1, h2, h3, h4, h5, h6, button, input {
 
   font-family: Nova;
   padding: 0;
