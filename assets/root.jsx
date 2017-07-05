@@ -10,9 +10,13 @@ class Root extends React.Component {
   render() {
     return(
       <div className="form-builder">
-        <h1>Form Builder</h1>
+        <div className="navigation">
+          <div className="header-background">
+            <h1>Form Builder</h1>
+            <Tabs />
+          </div>
+        </div>
         <main className="form">
-          <Tabs />
         </main>
       </div>
     )

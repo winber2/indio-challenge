@@ -5,8 +5,37 @@ div.form-builder {
   width: 75vw;
 }
 
-h1 {
-  padding: 10px;
+div.navigation {
+  width: 100%;
+}
+
+div.header-background {
+  display: inline-block;
+  background: rgba(62, 209, 196, 1);
   margin-left: 20px;
+}
+
+h1 {
+  padding: 40px 10px 0 10px;
   font-size: 3em;
+  font-weight: 100;
+  color: white;
+  position: relative;
+  top: 13px;
+  /*font-family: Source Sans Pro;*/
+}
+
+nav {
+  background: white;
+  display: flex;
+  padding-top: 15px;
+}
+
+nav li {
+  border-bottom: 5px solid rgba(62, 209, 196, 1);
+  padding: 5px;
+  margin: 0 10px;
+
+  color: rgba(62, 209, 196, 1);
+  font-size: 1.5em;
 }
