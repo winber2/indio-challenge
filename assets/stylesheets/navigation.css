@@ -26,6 +26,17 @@ div.form-builder {
 
 div.navigation {
   padding-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.navigation figure {
+  background-image: url('../images/indio.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 140px;
+  height: 45px;
 }
 
 div.header-background {

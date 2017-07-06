@@ -32,11 +32,12 @@ class QuestionPreview extends React.Component {
   constructQuestion() {
     let question = this.props.question;
     let input;
+    let key = Math.random();
     if (this.props.type === 'radio') {
       input = (
         <div className='radio-preview'>
-          Yes<input type='radio' value='yes' />
-          No<input type='radio' value='no' />
+          Yes<input type='radio' value='yes' name={key}/>
+          No<input type='radio' value='no' name={key}/>
         </div>
       )
     } else if (this.props.type === 'text' || this.props.type === 'number') {

@@ -43,6 +43,7 @@ class Root extends React.Component {
               preview={this.state.preview}
               export={this.state.export}/>
           </div>
+          <figure />
         </div>
         <section>
           <main className={`question ${this.state.create}`}>

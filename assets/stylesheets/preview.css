@@ -1,7 +1,26 @@
 div.question-preview-wrapper {
-  margin-left: 50px;
+  margin-left: 20px;
 }
 
 ul.preview-index > div.question-preview-wrapper {
   margin: 0
+}
+
+article.question-preview {
+  padding: 10px 20px;
+  border: none;
+  margin: 0;
+}
+
+article.question-preview span {
+  padding: 10px;
+}
+
+article.question-preview input {
+  margin: 0 10px;
+}
+
+div.radio-preview {
+  display: flex;
+  margin-left: 10px;
 }
