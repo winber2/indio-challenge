@@ -2,6 +2,7 @@ import React from 'react';
 import Tabs from './navigation/tabs';
 import AddQuestion from './question/add_question';
 import Question from './question/question';
+import Preview from './question/preview';
 
 class Root extends React.Component {
   constructor(props) {
@@ -45,13 +46,16 @@ class Root extends React.Component {
         </div>
         <section>
           <main className={`question ${this.state.create}`}>
-            <ul className="question">
+            <ul className="questions">
               {this.state.questions}
             </ul>
             <AddQuestion addQuestion={this.addQuestion} />
           </main>
           <main className={`preview ${this.state.preview}`}>
-            asdfasdfasdfasdfasfas
+            <Preview />
+          </main>
+          <main className={`export ${this.state.export}`}>
+            export
           </main>
         </section>
       </div>

@@ -24,6 +24,10 @@ class Question extends React.Component {
     question.parentNode.removeChild(question);
   }
 
+  update(prop) {
+
+  }
+
   handleChange(e) {
     let value = e.currentTarget.value;
     this.setState({ value: value })
@@ -37,35 +41,34 @@ class Question extends React.Component {
   addCondition() {
     if (this.props.isSubQuestion) {
       let value = this.props.parentState;
+      let options;
       if (value === 'text' || value === 'radio') {
-        return(
-          <div>
-            Condition
-            <div className="condition">
-              <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
-                <option value="any">Any</option>
-                <option value="equal">Equal</option>
-              </select>
-              <input className="condition"></input>
-            </div>
-          </div>
+        options = (
+          <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
+            <option value="any">Any</option>
+            <option value="equal">Equal</option>
+          </select>
         )
       } else {
-        return(
-          <div>
-            Condition
-            <div className="condition">
-              <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
-                <option value="any">Any</option>
-                <option value="equal">Equal</option>
-                <option value="greater">Greater Than</option>
-                <option value="less">Less Than</option>
-              </select>
-              <input className="condition"></input>
-            </div>
-          </div>
-        );
+        options = (
+          <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
+            <option value="any">Any</option>
+            <option value="equal">Equal</option>
+            <option value="greater">Greater Than</option>
+            <option value="less">Less Than</option>
+          </select>
+        )
       }
+
+      return(
+        <div className="condition-wrapper">
+          Condition
+          <div className="condition">
+            {options}
+            <input className="condition"></input>
+          </div>
+        </div>
+      );
     }
   }
 
