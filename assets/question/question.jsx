@@ -30,8 +30,8 @@ class Question extends React.Component {
             <button onClick={this.addSubQuestion}>Add sub-input</button>
             <button>Delete</button>
           </div>
-          {this.state.subQuestions}
         </article>
+        {this.state.subQuestions}
       </div>
     )
   }

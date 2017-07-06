@@ -22,7 +22,7 @@ h1 {
   color: white;
   position: relative;
   top: 13px;
-  /*font-family: Source Sans Pro;*/
+  text-align: center;
 }
 
 nav {
@@ -32,10 +32,34 @@ nav {
 }
 
 nav li {
-  border-bottom: 5px solid rgba(62, 209, 196, 1);
   padding: 5px;
   margin: 0 10px;
-
+  display: flex;
+  flex-direction: column;
+  position: relative;
   color: rgba(62, 209, 196, 1);
   font-size: 1.5em;
+}
+
+nav li div {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 0;
+  width: 100%;
+  background: rgba(62, 209, 196, 1);
+
+  transition: all 0.2s;
+}
+
+nav li:hover {
+  cursor: pointer;
+}
+
+nav li:hover div {
+  height: 5px;
+}
+
+nav li div.active {
+  height: 5px;
 }

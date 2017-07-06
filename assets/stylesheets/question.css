@@ -1,3 +1,11 @@
+div.question-index {
+  margin-left: 50px;
+}
+
+ul.questions > div.question-index {
+  margin: 0;
+}
+
 article {
   display: flex;
   flex-direction: column;
@@ -6,7 +14,7 @@ article {
   width: 500px;
   border: 1px solid rgba(62, 209, 196, 1);
   border-radius: 5px;
-
+  font-size: 0.9em;
 }
 
 input {
