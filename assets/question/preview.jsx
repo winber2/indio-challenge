@@ -16,11 +16,11 @@ class Preview extends React.Component {
 
   extractContents(node) {
     let questionWrapper = node.children[0];
-    let question = questionWrapper.querySelector('input').value;
-    let type = questionWrapper.querySelector('select').value;
+    let question = questionWrapper.querySelector('input.question').value;
+    let type = questionWrapper.querySelector('select.question-type').value;
     let condition = questionWrapper.querySelector('div.condition-wrapper');
-    let conditional = condition ? condition.children[0] : null;
-    let conditionValue = condition ? condition.children[1] : null;
+    let conditional = condition ? condition.children[0].children[0].value : null;
+    let conditionValue = condition ? condition.children[0].children[1].value : null;
     return({
       question: question,
       type: type,
@@ -40,7 +40,7 @@ class Preview extends React.Component {
     return currentState;
   }
 
-  createPreview(questions = this.state.questions) {
+  createPreview(questions) {
     for (let key in questions) {
       let question = questions[key].question;
       let type = questions[key].type;

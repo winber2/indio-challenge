@@ -8,7 +8,7 @@ class QuestionPreview extends React.Component {
 
   componentWillMount() {
     let questions = this.props.subQuestions;
-    if (questions) {
+    if (Object.keys(questions).length !== 0 && questions.constructor === Object) {
       for (let key in questions) {
         let question = questions[key].question;
         let type = questions[key].type;
@@ -21,7 +21,7 @@ class QuestionPreview extends React.Component {
             conditional={conditional}
             conditionValue={conditionValue}
             subQuestions={subQuestions}
-            key={this.state.key}/>
+            key={this.state.key} />
         )
         this.state.preview.push(preview);
         this.state.key += 1;
@@ -35,8 +35,8 @@ class QuestionPreview extends React.Component {
     if (this.props.type === 'radio') {
       input = (
         <div className='radio-preview'>
-          <input type='radio' value='yes'>Yes</input>
-          <input type='radio' value='no'>No</input>
+          Yes<input type='radio' value='yes' />
+          No<input type='radio' value='no' />
         </div>
       )
     } else if (this.props.type === 'text' || this.props.type === 'number') {

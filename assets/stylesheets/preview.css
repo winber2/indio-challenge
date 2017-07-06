@@ -1,0 +1,7 @@
+div.question-preview-wrapper {
+  margin-left: 50px;
+}
+
+ul.preview-index > div.question-preview-wrapper {
+  margin: 0
+}
