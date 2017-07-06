@@ -7,32 +7,32 @@ class Preview extends React.Component {
   }
 
   componentWillUpdate() {
-    console.log('adf');
+    let questions = this.traverseDOM(document.querySelector('ul.questions'));
+    console.log(questions);
   }
 
   extractContents(node) {
     let question = node.children[0];
-    let subQuestion = node.children[1];
     let input = question.querySelector('input').value;
     let select = question.querySelector('select').value;
     let condition = question.querySelector('div.condition-wrapper');
-    let conditional = condition.children[0];
-    let conditionValue = condition.children[1];
+    let conditional = condition ? condition.children[0] : undefined;
+    let conditionValue = condition ? condition.children[1] : undefined;
     return({
       input: input,
       select: select,
       conditional: conditional,
       conditionValue: conditionValue,
-      subQuestion: subQuestion
+      subQuestions: {}
     })
   }
 
   traverseDOM(parent, currentState = {}) {
-    let children = parent.children;
+    let children = parent.querySelectorAll(':scope > div.question-index');
     children.forEach((child, idx) => {
       let question = this.extractContents(child);
-      currentState.push('');
-      this.traverseDOM(child);
+      currentState[`question${idx}`] = question;
+      this.traverseDOM(child, currentState[`question${idx}`].subQuestions);
     });
     return currentState;
   }
