@@ -3,14 +3,24 @@ import React from 'react';
 class Question extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { subQuestions: [], key: 0 }
+    this.state = { subQuestions: [], key: 0, value: 'select' }
     this.addSubQuestion = this.addSubQuestion.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   addSubQuestion() {
     let subQuestions = this.state.subQuestions;
     subQuestions.push(<Question key={this.state.key}/>);
     this.setState({ subQuestions: subQuestions, key: this.state.key += 1 });
+  }
+
+  delete() {
+
+  }
+
+  handleChange(e) {
+    let value = e.currentTarget.value;
+    this.setState({ value: value })
   }
 
   render() {
@@ -20,11 +30,11 @@ class Question extends React.Component {
           Question
           <input className="question" placeholder=""></input>
           Question Type
-          <select defaultValue="option-1" className="question-type">
-            <option id="option-1" disabled>--Select Option--</option>
-            <option>yaya</option>
-            <option>yaya</option>
-            <option>yaya</option>
+          <select value={this.state.value} className="question-type" onChange={this.handleChange}>
+            <option value="select" disabled>--Select Option--</option>
+            <option value="radio">Yes/No</option>
+            <option value="number">Number</option>
+            <option value="text">Text</option>
           </select>
           <div className="question-buttons">
             <button onClick={this.addSubQuestion}>Add sub-input</button>
