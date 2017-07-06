@@ -1,5 +1,10 @@
 div.question-preview-wrapper {
   margin-left: 20px;
+  display: none;
+}
+
+div.question-preview-wrapper.active {
+  display: block;
 }
 
 ul.preview-index > div.question-preview-wrapper {

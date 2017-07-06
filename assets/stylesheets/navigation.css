@@ -8,6 +8,7 @@ main {
   left: 0;
   visibility: hidden;
   opacity: 0;
+  padding-bottom: 30px;
   transition: all 0.5s;
 }
 
@@ -20,7 +21,7 @@ main.active {
 div.form-builder {
   margin: 0 auto;
   min-width: 600px;
-  max-width: 1200px;
+  max-width: 1000px;
   width: 75vw;
 }
 
@@ -43,6 +44,10 @@ div.header-background {
   display: inline-block;
   background: rgba(62, 209, 196, 1);
   margin-left: 20px;
+}
+
+section {
+  width: 1000px;
 }
 
 h1 {

@@ -3,7 +3,11 @@ import React from 'react';
 class QuestionPreview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { preview: [], key: 0 };
+    this.state = { preview: [], key: 0, active: '' };
+    this.checkCondition = this.checkCondition.bind(this);
+  }
+
+  componentWillReceiveProps() {
   }
 
   componentWillMount() {
@@ -21,12 +25,27 @@ class QuestionPreview extends React.Component {
             conditional={conditional}
             conditionValue={conditionValue}
             subQuestions={subQuestions}
+            active={this.state.active}
             key={this.state.key} />
         )
         this.state.preview.push(preview);
         this.state.key += 1;
       }
     }
+  }
+
+  checkCondition(e) {
+    let value = e.currentTarget.value;
+    let scope = this;
+    this.state.preview.forEach(question => {
+      if (scope.props.type === 'radio') {
+        if (question.props.conditionValue === value) {
+          scope.setState({ active: 'active', checked: value });
+        } else {
+          scope.setState({ active: '', checked: value })
+        }
+      }
+    });
   }
 
   constructQuestion() {
@@ -36,12 +55,18 @@ class QuestionPreview extends React.Component {
     if (this.props.type === 'radio') {
       input = (
         <div className='radio-preview'>
-          Yes<input type='radio' value='yes' name={key}/>
-          No<input type='radio' value='no' name={key}/>
+          Yes
+          <input checked={this.state.checked === 'yes'}
+          onChange={this.checkCondition}
+          type='radio' value='yes' name={key} />
+          No
+          <input checked={this.state.checked === 'no'}
+            onChange={this.checkCondition}
+            type='radio' value='no' name={key} />
         </div>
       )
     } else if (this.props.type === 'text' || this.props.type === 'number') {
-      input = <input className='text-preview'></input>
+      input = <input onChange={this.checkCondition} className='text-preview'></input>
     }
     return(
       <article className="question-preview">
@@ -53,9 +78,11 @@ class QuestionPreview extends React.Component {
 
   render() {
     return(
-      <div className="question-preview-wrapper">
+      <div className={`question-preview-wrapper ${this.props.active}`}>
         {this.constructQuestion()}
-        {this.state.preview}
+        {this.state.preview.map(question => (
+          React.cloneElement(question, { active: this.state.active })
+        ))}
       </div>
     )
   }

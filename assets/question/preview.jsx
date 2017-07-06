@@ -4,7 +4,7 @@ import QuestionPreview from './question_preview';
 class Preview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { questions: {}, preview: [], key: 0 };
+    this.state = { questions: {}, preview: [], key: 0, active: 'active' };
   }
 
   componentWillUpdate() {
@@ -63,7 +63,9 @@ class Preview extends React.Component {
   render() {
     return(
       <ul className="preview-index">
-        {this.state.preview}
+        {this.state.preview.map(question => (
+          React.cloneElement(question, { active: this.state.active })
+        ))}
       </ul>
     )
   }
