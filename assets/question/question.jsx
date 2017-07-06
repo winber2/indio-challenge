@@ -3,15 +3,16 @@ import React from 'react';
 class Question extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { subQuestions: [], key: 0, value: 'select' }
+    this.state = { subQuestions: [], key: 0, value: 'select', condition: 'equal' }
     this.addSubQuestion = this.addSubQuestion.bind(this);
+    this.handleCondition = this.handleCondition.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.delete = this.delete.bind(this);
   }
 
   addSubQuestion() {
     let subQuestions = this.state.subQuestions;
-    subQuestions.push(<Question key={this.state.key}/>);
+    subQuestions.push(<Question isSubQuestion={true} key={this.state.key}/>);
     this.setState({ subQuestions: subQuestions, key: this.state.key += 1 });
   }
 
@@ -25,10 +26,35 @@ class Question extends React.Component {
     this.setState({ value: value })
   }
 
+  handleCondition(e) {
+    let value = e.currentTarget.value;
+    this.setState({ condition: value })
+  }
+
+  addCondition() {
+    if (this.props.isSubQuestion) {
+      return(
+        <div>
+          Condition
+          <div className="condition">
+            <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
+              <option value="any">Any</option>
+              <option value="equal">Equal</option>
+              <option value="greater">Greater Than</option>
+              <option value="less">Less Than</option>
+            </select>
+            <input className="condition"></input>
+          </div>
+        </div>
+      )
+    }
+  }
+
   render() {
     return(
       <div ref="question" className="question-index">
         <article className="question">
+          {this.addCondition()}
           Question
           <input className="question" placeholder=""></input>
           Question Type
