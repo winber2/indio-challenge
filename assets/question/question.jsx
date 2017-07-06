@@ -11,16 +11,11 @@ class Question extends React.Component {
   }
 
   componentWillUpdate() {
-    debugger;
   }
 
   addSubQuestion() {
     let subQuestions = this.state.subQuestions;
-    // let isText;
-    // if (this.state.value === 'text' || this.state.value === 'radio') {
-    //   isText = true;
-    // }
-    subQuestions.push(<Question isSubQuestion={true} parent={this} key={this.state.key}/>);
+    subQuestions.push(<Question isSubQuestion={true} parentState={this.state.value} key={this.state.key}/>);
     this.setState({ subQuestions: subQuestions, key: this.state.key += 1 });
   }
 
@@ -41,7 +36,7 @@ class Question extends React.Component {
 
   addCondition() {
     if (this.props.isSubQuestion) {
-      let value = this.props.parent.state.value;
+      let value = this.props.parentState;
       if (value === 'text' || value === 'radio') {
         return(
           <div>
@@ -93,7 +88,9 @@ class Question extends React.Component {
             <button onClick={this.delete}>Delete</button>
           </div>
         </article>
-        {this.state.subQuestions}
+        {this.state.subQuestions.map(question => (
+          React.cloneElement(question, { parentState: this.state.value })
+        ))}
       </div>
     )
   }
