@@ -3,30 +3,29 @@ import React from 'react';
 class Tabs extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { create: 'active', preview: '', export: ''};
   }
 
-  handleClick(prop) {
-    return () => {
-      this.setState({ create: '', preview: '', export: '' });
-      this.setState({ [prop]: 'active' });
-    };
-  }
+  // handleClick(prop) {
+  //   return () => {
+  //     this.setState({ create: '', preview: '', export: '' });
+  //     this.setState({ [prop]: 'active' });
+  //   };
+  // }
 
   render() {
     return(
       <nav>
-        <li onClick={this.handleClick('create')}>
+        <li onClick={this.props.handleClick('create')}>
           Create
-          <div className={this.state.create} />
+          <div className={this.props.create} />
         </li>
-        <li onClick={this.handleClick('preview')}>
+        <li onClick={this.props.handleClick('preview')}>
           Preview
-          <div className={this.state.preview} />
+          <div className={this.props.preview} />
         </li>
-        <li onClick={this.handleClick('export')}>
+        <li onClick={this.props.handleClick('export')}>
           Export
-          <div className={this.state.export} />
+          <div className={this.props.export} />
         </li>
       </nav>
     )

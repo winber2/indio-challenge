@@ -6,8 +6,23 @@ import Question from './question/question';
 class Root extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: 'create', questions: [], key: 0 };
+    this.state = {
+      active: 'create',
+      questions: [],
+      key: 0,
+      create: 'active',
+      preview: '',
+      export: ''
+    };
     this.addQuestion = this.addQuestion.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(prop) {
+    return () => {
+      this.setState({ create: '', preview: '', export: '' });
+      this.setState({ [prop]: 'active' });
+    };
   }
 
   addQuestion() {
@@ -22,15 +37,21 @@ class Root extends React.Component {
         <div className="navigation">
           <div className="header-background">
             <h1>Form Builder</h1>
-            <Tabs />
+            <Tabs handleClick={this.handleClick}
+              create={this.state.create}
+              preview={this.state.preview}
+              export={this.state.export}/>
           </div>
         </div>
-        <main className="form">
+        <main className={`question ${this.state.create}`}>
+          <ul className="question">
+            {this.state.questions}
+          </ul>
+          <AddQuestion addQuestion={this.addQuestion} />
         </main>
-        <ul className="questions">
-          {this.state.questions}
-        </ul>
-        <AddQuestion addQuestion={this.addQuestion} />
+        <main className={`preview ${this.state.preview}`}>
+
+        </main>
       </div>
     )
   }

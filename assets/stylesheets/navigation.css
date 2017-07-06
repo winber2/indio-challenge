@@ -1,3 +1,14 @@
+main {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+main.active {
+  visibility: visible;
+  opacity: 1;
+}
+
 div.form-builder {
   margin: 0 auto;
   min-width: 600px;
@@ -57,9 +68,9 @@ nav li:hover {
 }
 
 nav li:hover div {
-  height: 5px;
+  height: 3px;
 }
 
 nav li div.active {
-  height: 5px;
+  height: 3px;
 }
