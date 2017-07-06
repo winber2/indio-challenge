@@ -6,6 +6,7 @@ class Question extends React.Component {
     this.state = { subQuestions: [], key: 0, value: 'select' }
     this.addSubQuestion = this.addSubQuestion.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.delete = this.delete.bind(this);
   }
 
   addSubQuestion() {
@@ -15,7 +16,8 @@ class Question extends React.Component {
   }
 
   delete() {
-
+    let question = this.refs.question;
+    question.parentNode.removeChild(question);
   }
 
   handleChange(e) {
@@ -25,7 +27,7 @@ class Question extends React.Component {
 
   render() {
     return(
-      <div className="question-index">
+      <div ref="question" className="question-index">
         <article className="question">
           Question
           <input className="question" placeholder=""></input>
@@ -38,7 +40,7 @@ class Question extends React.Component {
           </select>
           <div className="question-buttons">
             <button onClick={this.addSubQuestion}>Add sub-input</button>
-            <button>Delete</button>
+            <button onClick={this.delete}>Delete</button>
           </div>
         </article>
         {this.state.subQuestions}
