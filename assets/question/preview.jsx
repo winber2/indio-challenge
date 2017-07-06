@@ -1,26 +1,29 @@
 import React from 'react';
+import QuestionPreview from './question_preview';
 
 class Preview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = { questions: {}, preview: [], key: 0 };
   }
 
   componentWillUpdate() {
+    this.state.preview = [];
     let questions = this.traverseDOM(document.querySelector('ul.questions'));
-    console.log(questions);
+    this.state.questions = questions;
+    this.createPreview(questions);
   }
 
   extractContents(node) {
-    let question = node.children[0];
-    let input = question.querySelector('input').value;
-    let select = question.querySelector('select').value;
-    let condition = question.querySelector('div.condition-wrapper');
-    let conditional = condition ? condition.children[0] : undefined;
-    let conditionValue = condition ? condition.children[1] : undefined;
+    let questionWrapper = node.children[0];
+    let question = questionWrapper.querySelector('input').value;
+    let type = questionWrapper.querySelector('select').value;
+    let condition = questionWrapper.querySelector('div.condition-wrapper');
+    let conditional = condition ? condition.children[0] : null;
+    let conditionValue = condition ? condition.children[1] : null;
     return({
-      input: input,
-      select: select,
+      question: question,
+      type: type,
       conditional: conditional,
       conditionValue: conditionValue,
       subQuestions: {}
@@ -37,11 +40,31 @@ class Preview extends React.Component {
     return currentState;
   }
 
+  createPreview(questions = this.state.questions) {
+    for (let key in questions) {
+      let question = questions[key].question;
+      let type = questions[key].type;
+      let conditional = questions[key].conditional;
+      let conditionValue = questions[key].conditionValue;
+      let subQuestions = questions[key].subQuestions;
+      let preview = (
+        <QuestionPreview question={question}
+          type={type}
+          conditional={conditional}
+          conditionValue={conditionValue}
+          subQuestions={subQuestions}
+          key={this.state.key}/>
+      )
+      this.state.preview.push(preview);
+      this.state.key += 1;
+    }
+  }
+
   render() {
     return(
-      <div>
-        asfasdfad
-      </div>
+      <ul className="preview-index">
+        {this.state.preview}
+      </ul>
     )
   }
 }
