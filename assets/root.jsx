@@ -6,7 +6,14 @@ import Question from './question/question';
 class Root extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { active: 'create' };
+    this.state = { active: 'create', questions: [], key: 0 };
+    this.addQuestion = this.addQuestion.bind(this);
+  }
+
+  addQuestion() {
+    let questions = this.state.questions;
+    questions.push(<Question key={this.state.key} />);
+    this.setState({ questions: questions, key: this.state.key += 1})
   }
 
   render() {
@@ -21,9 +28,9 @@ class Root extends React.Component {
         <main className="form">
         </main>
         <ul className="questions">
-          <Question />
+          {this.state.questions}
         </ul>
-        <AddQuestion />
+        <AddQuestion addQuestion={this.addQuestion} />
       </div>
     )
   }
