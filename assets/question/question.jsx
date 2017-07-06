@@ -10,9 +10,17 @@ class Question extends React.Component {
     this.delete = this.delete.bind(this);
   }
 
+  componentWillUpdate() {
+    debugger;
+  }
+
   addSubQuestion() {
     let subQuestions = this.state.subQuestions;
-    subQuestions.push(<Question isSubQuestion={true} key={this.state.key}/>);
+    // let isText;
+    // if (this.state.value === 'text' || this.state.value === 'radio') {
+    //   isText = true;
+    // }
+    subQuestions.push(<Question isSubQuestion={true} parent={this} key={this.state.key}/>);
     this.setState({ subQuestions: subQuestions, key: this.state.key += 1 });
   }
 
@@ -33,20 +41,36 @@ class Question extends React.Component {
 
   addCondition() {
     if (this.props.isSubQuestion) {
-      return(
-        <div>
-          Condition
-          <div className="condition">
-            <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
-              <option value="any">Any</option>
-              <option value="equal">Equal</option>
-              <option value="greater">Greater Than</option>
-              <option value="less">Less Than</option>
-            </select>
-            <input className="condition"></input>
+      let value = this.props.parent.state.value;
+      if (value === 'text' || value === 'radio') {
+        return(
+          <div>
+            Condition
+            <div className="condition">
+              <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
+                <option value="any">Any</option>
+                <option value="equal">Equal</option>
+              </select>
+              <input className="condition"></input>
+            </div>
           </div>
-        </div>
-      )
+        )
+      } else {
+        return(
+          <div>
+            Condition
+            <div className="condition">
+              <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
+                <option value="any">Any</option>
+                <option value="equal">Equal</option>
+                <option value="greater">Greater Than</option>
+                <option value="less">Less Than</option>
+              </select>
+              <input className="condition"></input>
+            </div>
+          </div>
+        );
+      }
     }
   }
 
