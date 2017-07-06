@@ -43,15 +43,17 @@ class Root extends React.Component {
               export={this.state.export}/>
           </div>
         </div>
-        <main className={`question ${this.state.create}`}>
-          <ul className="question">
-            {this.state.questions}
-          </ul>
-          <AddQuestion addQuestion={this.addQuestion} />
-        </main>
-        <main className={`preview ${this.state.preview}`}>
-
-        </main>
+        <section>
+          <main className={`question ${this.state.create}`}>
+            <ul className="question">
+              {this.state.questions}
+            </ul>
+            <AddQuestion addQuestion={this.addQuestion} />
+          </main>
+          <main className={`preview ${this.state.preview}`}>
+            asdfasdfasdfasdfasfas
+          </main>
+        </section>
       </div>
     )
   }

@@ -5,13 +5,6 @@ class Tabs extends React.Component {
     super(props);
   }
 
-  // handleClick(prop) {
-  //   return () => {
-  //     this.setState({ create: '', preview: '', export: '' });
-  //     this.setState({ [prop]: 'active' });
-  //   };
-  // }
-
   render() {
     return(
       <nav>
