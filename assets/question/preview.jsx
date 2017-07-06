@@ -29,11 +29,11 @@ class Preview extends React.Component {
 
   traverseDOM(parent, currentState = {}) {
     let children = parent.children;
-    children.forEach((child, idx) => (
+    children.forEach((child, idx) => {
       let question = this.extractContents(child);
-      currentState.push
+      currentState.push('');
       this.traverseDOM(child);
-    ));
+    });
     return currentState;
   }
 
