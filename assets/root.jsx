@@ -27,13 +27,6 @@ class Root extends React.Component {
     if (questions) this.importData(questions);
   }
 
-  removeAllQuestions() {
-    let parent = document.querySelector('ul.questions');
-    while (parent.firstChild) {
-      parent.removeChild(parent.firstChild);
-    }
-  }
-
   importData(questions) {
     this.state.questions = [];
     for (let key in questions) {
@@ -54,7 +47,7 @@ class Root extends React.Component {
   }
 
   saveData() {
-    if (this.state.create === 'active') {
+    if (this.state.create === 'active' || this.state.export === 'active') {
       this.setState({ create: '', preview: '', export: '' });
       this.setState({ create: 'active' });
     }
@@ -102,7 +95,7 @@ class Root extends React.Component {
             <Preview />
           </main>
           <main className={`export ${this.state.export}`}>
-            <Export importData={this.importData}/>
+            <Export importData={this.importData} saveData={this.saveData} />
           </main>
         </section>
       </div>

@@ -9,6 +9,7 @@ class Export extends React.Component {
 
   importData() {
     this.props.importData(JSON.parse(this.refs.textarea.value));
+    this.props.saveData();
   }
 
   exportData() {
