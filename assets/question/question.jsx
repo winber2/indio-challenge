@@ -9,13 +9,16 @@ class Question extends React.Component {
       value: 'select',
       condition: 'equal',
       conditionValue: '',
-      question: ''
+      question: '',
+      confirm: ''
     }
     this.addSubQuestion = this.addSubQuestion.bind(this);
     this.handleCondition = this.handleCondition.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleInput = this.handleInput.bind(this);
     this.deleteQuestion = this.deleteQuestion.bind(this);
+    this.confirmDelete = this.confirmDelete.bind(this);
+    this.closeConfirmation = this.closeConfirmation.bind(this);
   }
 
   componentWillMount() {
@@ -57,7 +60,6 @@ class Question extends React.Component {
         }
       }
     }
-
   }
 
   addSubQuestion() {
@@ -70,6 +72,14 @@ class Question extends React.Component {
         saveData={this.props.saveData} />
     );
     this.setState({ subQuestions: subQuestions, key: this.state.key += 1 });
+  }
+
+  confirmDelete() {
+    this.setState({ confirm: 'active' });
+  }
+
+  closeConfirmation() {
+    this.setState({ confirm: '' });
   }
 
   deleteQuestion() {
@@ -178,7 +188,16 @@ class Question extends React.Component {
           </select>
           <div className="question-buttons">
             <button onClick={this.addSubQuestion}>Add sub-input</button>
-            <button onClick={this.deleteQuestion}>Delete</button>
+            <button tabIndex="1" onBlur={this.closeConfirmation} onClick={this.confirmDelete}>Delete</button>
+            <aside className={`confirm-delete ${this.state.confirm}`}>
+              <div className="triangle-border" />
+              <div className="triangle" />
+              <ul className="confirmation-buttons">
+                Are you sure?
+                <button onMouseDown={this.deleteQuestion}>Yes</button>
+                <button onMouseDown={this.closeConfirmation}>No</button>
+              </ul>
+            </aside>
           </div>
         </article>
         {this.state.subQuestions.map(question => (

@@ -68,7 +68,7 @@ div.question-buttons {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-
+  position: relative;
 }
 
 div.question-buttons button {
@@ -116,4 +116,59 @@ button span {
 
 button:hover div {
   background: #35b1a6;
+}
+
+aside.confirm-delete {
+  visibility: hidden;
+  position: absolute;
+  bottom: -110px;
+  right: -41px;
+  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+aside.confirm-delete.active {
+  visibility: visible;
+}
+
+ul.confirmation-buttons {
+  border: 1px solid #3ed1c4;
+  border-radius: 3px;
+  padding: 15px 10px;
+  background: white;
+}
+
+ul.confirmation-buttons button {
+  margin: 10px 0 0 0;
+  width: 50px;
+  display: inline-block;
+}
+
+ul.confirmation-buttons button:first-child {
+  margin-right: 10px
+}
+
+div.triangle {
+  position: absolute;
+  top: 2px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 10px 15px 10px;
+  border-color: transparent transparent #ffffff transparent;
+
+}
+
+div.triangle-border {
+  position: relative;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 11px 16px 11px;
+  border-color: transparent transparent #3ed1c4 transparent;
 }
