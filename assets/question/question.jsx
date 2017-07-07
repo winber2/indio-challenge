@@ -84,14 +84,15 @@ class Question extends React.Component {
 
   deleteQuestion() {
     let questionId;
+    let scope = this;
     if (this.props.parent.state.subQuestions) {
       this.props.parent.state.subQuestions.forEach( (q, idx) => {
-        if (q.key === this.props.keyProp) questionId = idx;
+        if (parseInt(q.key) === scope.props.keyProp) questionId = idx;
       });
       this.props.parent.state.subQuestions.splice(questionId, 1)
     } else {
       this.props.parent.state.questions.forEach( (q, idx) => {
-        if (q.key === this.props.keyProp) questionId = idx;
+        if (parseInt(q.key) === scope.props.keyProp) questionId = idx;
       });
       this.props.parent.state.questions.splice(questionId, 1)
     }
