@@ -39,7 +39,7 @@ class Question extends React.Component {
     if (this.props.isSubQuestion) {
       let value = this.props.parentState;
       let options;
-      if (value === 'text' || value === 'radio') {
+      if (value === 'radio') {
         options = (
           <div className="condition">
             <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
@@ -48,6 +48,17 @@ class Question extends React.Component {
               <option value="no">No</option>
             </select>
             <input className="condition disabled" disabled></input>
+          </div>
+        )
+      } else if (value === 'text') {
+        options = (
+          <div className="condition">
+            <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
+              <option value="none">None</option>
+              <option value="equal">Equal</option>
+              <option value="similar">Similar</option>
+            </select>
+            <input className="condition"></input>
           </div>
         )
       } else {

@@ -65,7 +65,8 @@ class QuestionPreview extends React.Component {
             this.toggleDisplay(idx, false, question);
           }
         } else if (conditional === 'similar') {
-          if (conditionValue.toLowerCase().includes(value.toLowerCase())) {
+          let regex = new RegExp(conditionValue.toLowerCase());
+          if (regex.test(value.toLowerCase())) {
             this.toggleDisplay(idx, true, question);
           } else {
             this.toggleDisplay(idx, false, question);
