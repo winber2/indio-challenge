@@ -14,7 +14,8 @@ class Question extends React.Component {
     this.addSubQuestion = this.addSubQuestion.bind(this);
     this.handleCondition = this.handleCondition.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.delete = this.delete.bind(this);
+    this.handleInput = this.handleInput.bind(this);
+    this.deleteQuestion = this.deleteQuestion.bind(this);
   }
 
   componentWillMount() {
@@ -42,15 +43,17 @@ class Question extends React.Component {
       if (Object.keys(subQuestions).length !== 0 && subQuestions.constructor === Object) {
         for (let key in subQuestions) {
           this.state.subQuestions.push(
-            <Question key={this.state.key}
+            <Question key={this.state.key} keyProp={this.state.key}
               isImported={true}
               isSubQuestion={true}
               conditional={subQuestions[key].conditional}
               conditionValue={subQuestions[key].conditionValue}
               question={subQuestions[key].question}
               type={subQuestions[key].type}
-              subQuestions={subQuestions[key].subQuestions} />
+              subQuestions={subQuestions[key].subQuestions}
+              saveData={this.props.saveData} />
           );
+          this.state.key += 1;
         }
       }
     }
@@ -61,34 +64,50 @@ class Question extends React.Component {
     let subQuestions = this.state.subQuestions;
     subQuestions.push(
       <Question isSubQuestion={true}
-        parentState={this.state.value}
-        key={this.state.key} />
+        parent={this}
+        key={this.state.key}
+        keyProp={this.state.key}
+        saveData={this.props.saveData} />
     );
     this.setState({ subQuestions: subQuestions, key: this.state.key += 1 });
   }
 
-  delete() {
-    let question = this.refs.question;
-    question.parentNode.removeChild(question);
+  deleteQuestion() {
+    let questionId;
+    if (this.props.parent.state.subQuestions) {
+      this.props.parent.state.subQuestions.forEach( (q, idx) => {
+        if (q.key === this.props.keyProp) questionId = idx;
+      });
+      this.props.parent.state.subQuestions.splice(questionId, 1)
+    } else {
+      this.props.parent.state.questions.forEach( (q, idx) => {
+        if (q.key === this.props.keyProp) questionId = idx;
+      });
+      this.props.parent.state.questions.splice(questionId, 1)
+    }
+    this.props.parent.forceUpdate();
   }
 
   handleChange(e) {
     let value = e.currentTarget.value;
-    this.setState({ value: value })
+    this.setState({ value: value });
   }
 
   handleInput(prop) {
-    return e => this.setState({ [prop]: e.currentTarget.value })
+    return e => {
+      this.setState({ [prop]: e.currentTarget.value });
+      this.props.saveData();
+    }
   }
 
   handleCondition(e) {
     let value = e.currentTarget.value;
-    this.setState({ condition: value })
+    this.setState({ condition: value });
   }
 
   addCondition() {
     if (this.props.isSubQuestion) {
-      let value = this.props.parentState;
+      let value = this.props.parent.state.value;
       let options;
       if (value === 'radio') {
         options = (
@@ -159,11 +178,11 @@ class Question extends React.Component {
           </select>
           <div className="question-buttons">
             <button onClick={this.addSubQuestion}>Add sub-input</button>
-            <button onClick={this.delete}>Delete</button>
+            <button onClick={this.deleteQuestion}>Delete</button>
           </div>
         </article>
         {this.state.subQuestions.map(question => (
-          React.cloneElement(question, { parentState: this.state.value })
+          React.cloneElement(question, { parent: this })
         ))}
       </div>
     )

@@ -18,6 +18,8 @@ class Root extends React.Component {
     };
     this.addQuestion = this.addQuestion.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.saveData = this.saveData.bind(this);
+    this.importData = this.importData.bind(this);
   }
 
   componentDidMount() {
@@ -25,19 +27,37 @@ class Root extends React.Component {
     if (questions) this.importData(questions);
   }
 
+  removeAllQuestions() {
+    let parent = document.querySelector('ul.questions');
+    while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+    }
+  }
+
   importData(questions) {
+    this.state.questions = [];
     for (let key in questions) {
       this.state.questions.push(
-        <Question key={this.state.key}
+        <Question key={this.state.key} keyProp={this.state.key}
+          parent={this}
           isImported={true}
           conditional={questions[key].conditional}
           conditionValue={questions[key].conditionValue}
           question={questions[key].question}
           type={questions[key].type}
-          subQuestions={questions[key].subQuestions} />
+          subQuestions={questions[key].subQuestions}
+          saveData={this.saveData}/>
       );
+      this.state.key += 1
     }
     this.forceUpdate();
+  }
+
+  saveData() {
+    if (this.state.create === 'active') {
+      this.setState({ create: '', preview: '', export: '' });
+      this.setState({ create: 'active' });
+    }
   }
 
   handleClick(prop) {
@@ -49,7 +69,12 @@ class Root extends React.Component {
 
   addQuestion() {
     let questions = this.state.questions;
-    questions.push(<Question key={this.state.key} />);
+    questions.push(
+      <Question saveData={this.saveData}
+        key={this.state.key}
+        keyProp={this.state.key}
+        parent={this} />
+    );
     this.setState({ questions: questions, key: this.state.key += 1})
   }
 
@@ -77,7 +102,7 @@ class Root extends React.Component {
             <Preview />
           </main>
           <main className={`export ${this.state.export}`}>
-            <Export />
+            <Export importData={this.importData}/>
           </main>
         </section>
       </div>
