@@ -7,9 +7,6 @@ class QuestionPreview extends React.Component {
     this.checkCondition = this.checkCondition.bind(this);
   }
 
-  componentWillReceiveProps() {
-  }
-
   componentWillMount() {
     let questions = this.props.subQuestions;
     if (Object.keys(questions).length !== 0 && questions.constructor === Object) {
@@ -25,7 +22,6 @@ class QuestionPreview extends React.Component {
             conditional={conditional}
             conditionValue={conditionValue}
             subQuestions={subQuestions}
-            active={this.state.active}
             key={this.state.key} />
         )
         this.state.preview.push(preview);

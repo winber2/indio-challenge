@@ -54,7 +54,6 @@ class Question extends React.Component {
         options = (
           <div className="condition">
             <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
-              <option value="none">None</option>
               <option value="equal">Equal</option>
               <option value="similar">Similar</option>
             </select>
@@ -65,7 +64,6 @@ class Question extends React.Component {
         options = (
           <div className="condition">
             <select value={this.state.condition} className="condition" onChange={this.handleCondition}>
-              <option value="none">None</option>
               <option value="equal">Equal</option>
               <option value="greater">Greater Than</option>
               <option value="less">Less Than</option>
