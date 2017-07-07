@@ -4,7 +4,7 @@ import QuestionPreview from './question_preview';
 class Preview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { questions: {}, preview: [], key: 0, active: 'active' };
+    this.state = { questions: {}, preview: [], key: 0 };
   }
 
   componentWillUpdate() {
