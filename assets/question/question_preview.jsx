@@ -41,6 +41,7 @@ class QuestionPreview extends React.Component {
   checkCondition(e) {
     let value = e.currentTarget.value;
     let scope = this;
+    if (scope.props.type === 'radio') scope.setState({ checked: value });
     this.state.preview.forEach((question, idx) => {
       let conditionValue = question.props.conditionValue;
       let conditional = question.props.conditional;
@@ -52,7 +53,6 @@ class QuestionPreview extends React.Component {
         } else {
           this.toggleDisplay(idx, false, question);
         }
-        scope.setState({ checked: value });
       } else if (scope.props.type === 'text') {
         if (conditional === 'equal') {
           if (conditionValue === value) {
