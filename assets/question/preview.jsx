@@ -64,7 +64,7 @@ class Preview extends React.Component {
     return(
       <ul className="preview-index">
         {this.state.preview.map(question => (
-          React.cloneElement(question, { active: this.state.active })
+          React.cloneElement(question, { active: 'active' })
         ))}
       </ul>
     )

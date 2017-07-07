@@ -3,7 +3,7 @@ import React from 'react';
 class QuestionPreview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { preview: [], key: 0, active: '' };
+    this.state = { preview: [], key: 0, childActive: '' };
     this.checkCondition = this.checkCondition.bind(this);
   }
 
@@ -37,13 +37,19 @@ class QuestionPreview extends React.Component {
   checkCondition(e) {
     let value = e.currentTarget.value;
     let scope = this;
-    this.state.preview.forEach(question => {
+    this.state.preview.forEach((question, idx) => {
       if (scope.props.type === 'radio') {
         if (question.props.conditionValue === value) {
-          scope.setState({ active: 'active', checked: value });
+          this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+          scope.setState({ checked: value });
         } else {
-          scope.setState({ active: '', checked: value })
+          this.state.preview[idx] = React.cloneElement(question, { active: '' });
+          scope.setState({ checked: value });
         }
+      } else if (scope.props.type === 'text') {
+
+      } else if (scope.props.type === 'number') {
+
       }
     });
   }
@@ -80,9 +86,7 @@ class QuestionPreview extends React.Component {
     return(
       <div className={`question-preview-wrapper ${this.props.active}`}>
         {this.constructQuestion()}
-        {this.state.preview.map(question => (
-          React.cloneElement(question, { active: this.state.active })
-        ))}
+        {this.state.preview}
       </div>
     )
   }
