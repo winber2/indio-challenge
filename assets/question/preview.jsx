@@ -11,6 +11,7 @@ class Preview extends React.Component {
     this.state.preview = [];
     let questions = this.traverseDOM(document.querySelector('ul.questions'));
     this.state.questions = questions;
+    localStorage.setItem('questions', JSON.stringify(questions));
     this.createPreview(questions);
   }
 

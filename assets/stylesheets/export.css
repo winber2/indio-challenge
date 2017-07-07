@@ -1,0 +1,33 @@
+ul.export-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+div.export button {
+  background: rgba(62, 209, 196, 1);
+  padding: 10px;
+  border-radius: 5px;
+  color: white;
+  margin-right: 10px;
+}
+
+div.export button:hover {
+  background: #35b1a6;
+}
+
+textarea {
+  background: white;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  width: 75vw;
+  max-width: 1000px;
+  min-width: 600px;
+  height: 300px;
+  resize: none;
+}
+
+textarea:focus {
+  outline: none;
+}

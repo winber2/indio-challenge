@@ -3,6 +3,7 @@ import Tabs from './navigation/tabs';
 import AddQuestion from './question/add_question';
 import Question from './question/question';
 import Preview from './question/preview';
+import Export from './question/export';
 
 class Root extends React.Component {
   constructor(props) {
@@ -56,7 +57,7 @@ class Root extends React.Component {
             <Preview />
           </main>
           <main className={`export ${this.state.export}`}>
-            export
+            <Export />
           </main>
         </section>
       </div>
