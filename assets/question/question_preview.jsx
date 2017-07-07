@@ -34,51 +34,62 @@ class QuestionPreview extends React.Component {
     }
   }
 
+  toggleDisplay(idx, isActive, question) {
+    if (isActive) {
+      this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+    } else {
+      this.state.preview[idx] = React.cloneElement(question, { active: '' });
+    }
+  }
+
   checkCondition(e) {
     let value = e.currentTarget.value;
     let scope = this;
     this.state.preview.forEach((question, idx) => {
+      let conditionValue = question.props.conditionValue;
+      let conditional = question.props.conditional;
       if (scope.props.type === 'radio') {
-        if (question.props.conditionValue === value) {
-          this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
-          scope.setState({ checked: value });
+        if (conditional === value) {
+          this.toggleDisplay(idx, true, question);
+        } else if (conditional === 'none') {
+          this.toggleDisplay(idx, true, question);
         } else {
-          this.state.preview[idx] = React.cloneElement(question, { active: '' });
-          scope.setState({ checked: value });
+          this.toggleDisplay(idx, false, question);
         }
+        scope.setState({ checked: value });
       } else if (scope.props.type === 'text') {
-        if (question.props.conditional === 'equal') {
-          if (question.props.conditionValue === value) {
-            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+        if (conditional === 'equal') {
+          if (conditionValue === value) {
+            this.toggleDisplay(idx, true, question);
           } else {
-            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+            this.toggleDisplay(idx, false, question);
           }
-        } else if (question.props.conditional === 'similar') {
-          if (question.props.conditionValue.toLowerCase().includes(value.toLowerCase())) {
-            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+        } else if (conditional === 'similar') {
+          if (conditionValue.toLowerCase().includes(value.toLowerCase())) {
+            this.toggleDisplay(idx, true, question);
           } else {
-            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+            this.toggleDisplay(idx, false, question);
           }
         }
       } else if (scope.props.type === 'number') {
-        if (question.props.conditional === 'equal') {
+        if (conditional === 'equal') {
           if (isNaN(parseInt(value))) return;
-          if (question.props.conditionValue === value) {
-            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
-          } else  {
-            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+          if (conditionValue === value) {
+            this.toggleDisplay(idx, true, question);
+          } else {
+            this.toggleDisplay(idx, false, question);
           }
-        } else if (question.props.conditional === 'greater') {
-          if (question.props.conditionValue < value) {
-            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
-          } else  {
-            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+        } else if (conditional === 'greater') {
+          if (conditionValue < value) {
+            this.toggleDisplay(idx, true, question);
+          } else {
+            this.toggleDisplay(idx, false, question);
           }
-        } else if (question.props.conditional === 'less') {
-          if (question.props.conditionValue > value) {
-            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
-          } else  {
-            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+        } else if (conditional === 'less') {
+          if (conditionValue > value) {
+            this.toggleDisplay(idx, true, question);
+          } else {
+            this.toggleDisplay(idx, false, question);
           }
         }
       }

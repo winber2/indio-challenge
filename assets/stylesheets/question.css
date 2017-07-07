@@ -39,6 +39,10 @@ div.condition input {
   flex-grow: 1;
 }
 
+div.condition input.disabled {
+  background: #d5e6f5;
+}
+
 select {
   padding: 5px;
   border: none;
