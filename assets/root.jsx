@@ -20,6 +20,26 @@ class Root extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidMount() {
+    let questions = JSON.parse(localStorage.getItem('questions'));
+    if (questions) this.importData(questions);
+  }
+
+  importData(questions) {
+    for (let key in questions) {
+      this.state.questions.push(
+        <Question key={this.state.key}
+          isImported={true}
+          conditional={questions[key].conditional}
+          conditionValue={questions[key].conditionValue}
+          question={questions[key].question}
+          type={questions[key].type}
+          subQuestions={questions[key].subQuestions} />
+      );
+    }
+    this.forceUpdate();
+  }
+
   handleClick(prop) {
     return () => {
       this.setState({ create: '', preview: '', export: '' });

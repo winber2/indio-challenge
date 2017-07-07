@@ -10,6 +10,39 @@ class Question extends React.Component {
     this.delete = this.delete.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.isImported) {
+      let question = this.props.question;
+      let type = this.props.type;
+      let conditional = this.props.conditional;
+      let conditionValue = this.props.conditionValue;
+      let subQuestions = this.props.subQuestions;
+
+      this.setState({
+        question: question,
+        condition: conditional,
+        conditionValue: conditionValue,
+        value: type
+      });
+
+      if (Object.keys(subQuestions).length !== 0 && subQuestions.constructor === Object) {
+        for (let key in subQuestions) {
+          this.state.subQuestions.push(
+            <Question key={this.state.key}
+              isImported={true}
+              isSubQuestion={true}
+              conditional={subQuestions[key].conditional}
+              conditionValue={subQuestions[key].conditionValue}
+              question={subQuestions[key].question}
+              type={subQuestions[key].type}
+              subQuestions={subQuestions[key].subQuestions} />
+          );
+        }
+      }
+    }
+
+  }
+
   addSubQuestion() {
     let subQuestions = this.state.subQuestions;
     subQuestions.push(
@@ -30,6 +63,10 @@ class Question extends React.Component {
     this.setState({ value: value })
   }
 
+  handleInput(prop) {
+    return e => this.setState({ [prop]: e.currentTarget.value })
+  }
+
   handleCondition(e) {
     let value = e.currentTarget.value;
     this.setState({ condition: value })
@@ -47,7 +84,10 @@ class Question extends React.Component {
               <option value="yes">Yes</option>
               <option value="no">No</option>
             </select>
-            <input className="condition disabled" disabled></input>
+            <input className="condition disabled"
+              onChange={this.handleInput('conditionValue')}
+              value={this.state.conditionValue}
+              disabled></input>
           </div>
         )
       } else if (value === 'text') {
@@ -57,7 +97,9 @@ class Question extends React.Component {
               <option value="equal">Equal</option>
               <option value="similar">Similar</option>
             </select>
-            <input className="condition"></input>
+            <input className="condition"
+              onChange={this.handleInput('conditionValue')}
+              value={this.state.conditionValue}></input>
           </div>
         )
       } else {
@@ -68,7 +110,9 @@ class Question extends React.Component {
               <option value="greater">Greater Than</option>
               <option value="less">Less Than</option>
             </select>
-            <input className="condition"></input>
+            <input className="condition"
+              onChange={this.handleInput('conditionValue')}
+              value={this.state.conditionValue}></input>
           </div>
         )
       }
@@ -88,7 +132,10 @@ class Question extends React.Component {
         <article className="question">
           {this.addCondition()}
           Question
-          <input className="question" placeholder=""></input>
+          <input onChange={this.handleInput('question')}
+            className="question"
+            placeholder=""
+            value={this.state.question} />
           Question Type
           <select value={this.state.value} className="question-type" onChange={this.handleChange}>
             <option value="select" disabled>--Select Option--</option>
