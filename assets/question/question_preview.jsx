@@ -47,10 +47,42 @@ class QuestionPreview extends React.Component {
           scope.setState({ checked: value });
         }
       } else if (scope.props.type === 'text') {
-
+        if (question.props.conditional === 'equal') {
+          if (question.props.conditionValue === value) {
+            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+          } else {
+            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+          }
+        } else if (question.props.conditional === 'similar') {
+          if (question.props.conditionValue.toLowerCase().includes(value.toLowerCase())) {
+            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+          } else {
+            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+          }
+        }
       } else if (scope.props.type === 'number') {
-
+        if (question.props.conditional === 'equal') {
+          if (isNaN(parseInt(value))) return;
+          if (question.props.conditionValue === value) {
+            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+          } else  {
+            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+          }
+        } else if (question.props.conditional === 'greater') {
+          if (question.props.conditionValue < value) {
+            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+          } else  {
+            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+          }
+        } else if (question.props.conditional === 'less') {
+          if (question.props.conditionValue > value) {
+            this.state.preview[idx] = React.cloneElement(question, { active: 'active' });
+          } else  {
+            this.state.preview[idx] = React.cloneElement(question, { active: '' });
+          }
+        }
       }
+      this.forceUpdate();
     });
   }
 
