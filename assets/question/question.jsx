@@ -3,14 +3,21 @@ import React from 'react';
 class Question extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { subQuestions: [], key: 0, value: 'select', condition: 'equal' }
+    this.state = {
+      subQuestions: [],
+      key: 0,
+      value: 'select',
+      condition: 'equal',
+      conditionValue: '',
+      question: ''
+    }
     this.addSubQuestion = this.addSubQuestion.bind(this);
     this.handleCondition = this.handleCondition.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.delete = this.delete.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.isImported) {
       let question = this.props.question;
       let type = this.props.type;
@@ -18,12 +25,19 @@ class Question extends React.Component {
       let conditionValue = this.props.conditionValue;
       let subQuestions = this.props.subQuestions;
 
-      this.setState({
-        question: question,
-        condition: conditional,
-        conditionValue: conditionValue,
-        value: type
-      });
+      if (conditional === null) {
+        this.setState({
+          question: question,
+          value: type
+        });
+      } else {
+        this.setState({
+          question: question,
+          condition: conditional,
+          conditionValue: conditionValue,
+          value: type
+        });
+      }
 
       if (Object.keys(subQuestions).length !== 0 && subQuestions.constructor === Object) {
         for (let key in subQuestions) {
